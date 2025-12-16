@@ -24,5 +24,6 @@ This repository contains a starter scaffold for the Ward-Based Waste Management 
 - Finish polishing views, forms, templates for `accounts`, `users`, `workers`, `waste` and `payments` apps
 - Use management command to generate bills: `python manage.py generate_monthly_bills --year 2025 --month 12`
 - Invoice generation (HTML + optional PDF) available at `/payments/invoice/<id>/?pdf=1` if `xhtml2pdf` is installed
-- Implement tests and CI
+- Run `python manage.py generate_monthly_bills --year 2025 --month 12` to generate invoices (emails sent if email backend is configured)
+- Tests: run `python manage.py test` to execute unit tests for billing, pickup, worker verification, and payments
 - Configure production settings (DEBUG=False) and a robust DB (Postgres)

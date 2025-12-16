@@ -44,11 +44,14 @@ def invoice_view(request, pk):
         response['Content-Disposition'] = f'attachment; filename="invoice_{payment.invoice_number}.pdf"'
         return response
     return HttpResponse(html)
+
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Payment
 from django.utils import timezone
 from datetime import date
+from .utils import send_invoice_email
+from django.contrib import messages
 
 
 @login_required
@@ -63,5 +66,27 @@ def pay_payment(request, pk):
     if request.method == 'POST':
         payment.paid = True
         payment.save()
+        # send receipt email
+        try:
+            send_invoice_email(payment)
+        except Exception:
+            pass
         return redirect('payments:dashboard')
     return render(request, 'payments/pay.html', {'payment': payment})
+
+
+@login_required
+def payment_gateway_stub(request, pk):
+    """Simulated payment gateway (demo only)."""
+    payment = get_object_or_404(Payment, pk=pk, user=request.user)
+    if request.method == 'POST':
+        # simulate successful payment
+        payment.paid = True
+        payment.save()
+        try:
+            send_invoice_email(payment)
+        except Exception:
+            pass
+        messages.success(request, 'Payment processed (simulated) and receipt emailed')
+        return redirect('payments:dashboard')
+    return render(request, 'payments/gateway_stub.html', {'payment': payment})

@@ -24,6 +24,7 @@ class Command(BaseCommand):
         User = get_user_model()
         users = User.objects.all()
         created = 0
+        from payments.utils import send_invoice_email
         for user in users:
             # count pickups created in month
             pickups_count = Pickup.objects.filter(waste_record__user=user, waste_record__created_at__gte=first_day, waste_record__created_at__lte=last_day).count()
@@ -37,6 +38,13 @@ class Command(BaseCommand):
                 if not p.invoice_number:
                     p.invoice_number = invoice_num
                 p.save()
+            # send invoice email for newly created or updated unpaid bills
+            if not p.paid:
+                try:
+                    send_invoice_email(p)
+                except Exception:
+                    # do not fail the entire command if email sending fails
+                    pass
             created += 1
 
         self.stdout.write(self.style.SUCCESS(f'Generated/updated bills for {created} users for {year}-{month:02d}'))

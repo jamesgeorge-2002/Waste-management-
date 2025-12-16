@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Payment Gateway (Demo)</h2>
+<p>Invoice: {{ payment.invoice_number }} — Amount: ₹{{ payment.amount }}</p>
+<form method="post">
+  {% csrf_token %}
+  <p>This is a simulated gateway. Click to mark as paid.</p>
+  <button class="btn btn-success">Pay Now (Simulated)</button>
+</form>
+{% endblock %}
