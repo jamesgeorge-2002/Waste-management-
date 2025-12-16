@@ -20,6 +20,9 @@
       </div>
       <button class="btn btn-primary">Login</button>
     </form>
+      <hr />
+      <p>New here? <a href="{% url 'accounts:register_user' %}">Register as a user</a></p>
+      <p>Are you a worker? <a href="{% url 'accounts:register_worker' %}">Register as a worker</a></p>
   </div>
 </div>
 {% endblock %}
