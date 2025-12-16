@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Report Waste</h2>
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div class="mb-3">
+    <label class="form-label">Waste Type</label>
+    <select name="waste_type" class="form-select">
+      <option value="wet">Wet</option>
+      <option value="dry">Dry</option>
+      <option value="ewaste">E-waste</option>
+      <option value="hazardous">Hazardous</option>
+    </select>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Weight (kg)</label>
+    <input name="weight" class="form-control" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Image (optional)</label>
+    <input type="file" name="image" class="form-control">
+  </div>
+  <button class="btn btn-success">Submit</button>
+</form>
+{% endblock %}

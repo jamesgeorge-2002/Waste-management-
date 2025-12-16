@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Unassigned Pickups</h2>
+<table class="table">
+  <thead>
+    <tr><th>ID</th><th>User</th><th>Type</th><th>Weight</th><th>Created</th><th>Assign</th></tr>
+  </thead>
+  <tbody>
+    {% for p in pickups %}
+      <tr>
+        <td>{{ p.id }}</td>
+        <td>{{ p.waste_record.user }}</td>
+        <td>{{ p.waste_record.waste_type }}</td>
+        <td>{{ p.waste_record.entered_weight }} kg</td>
+        <td>{{ p.waste_record.created_at }}</td>
+        <td><a href="{% url 'adminpanel:assign_pickup' p.id %}" class="btn btn-sm btn-primary">Assign</a></td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="6">No unassigned pickups</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

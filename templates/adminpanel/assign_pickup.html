@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Assign Pickup {{ pickup.id }}</h2>
+<form method="post">
+  {% csrf_token %}
+  <div class="mb-3">
+    <label class="form-label">Worker</label>
+    <select name="worker" class="form-select">
+      {% for w in workers %}
+        <option value="{{ w.id }}">{{ w }} ({{ w.local_body }})</option>
+      {% endfor %}
+    </select>
+  </div>
+  <button class="btn btn-success">Assign</button>
+</form>
+{% endblock %}

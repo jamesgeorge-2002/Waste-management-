@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Update Pickup</h2>
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div class="mb-3">
+    <label class="form-label">Status</label>
+    <select name="status" class="form-select">
+      <option value="in_progress">In Progress</option>
+      <option value="completed">Completed</option>
+      <option value="missed">Missed</option>
+    </select>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Verified Weight (kg, optional)</label>
+    <input name="verified_weight" class="form-control" placeholder="e.g., 2.5">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Upload proof image (optional)</label>
+    <input type="file" name="worker_proof" class="form-control">
+  </div>
+  <button class="btn btn-primary">Update</button>
+</form>
+{% endblock %}

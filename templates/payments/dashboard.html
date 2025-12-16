@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Payments</h2>
+<ul class="list-group">
+  {% for p in payments %}
+    <li class="list-group-item">{{ p }} {% if not p.paid %}- <a href="{% url 'payments:pay' p.pk %}">Pay</a>{% endif %} - <a href="{% url 'payments:invoice' p.pk %}">Invoice</a></li>
+  {% empty %}
+    <li class="list-group-item">No payments</li>
+  {% endfor %}
+</ul>
+{% endblock %}

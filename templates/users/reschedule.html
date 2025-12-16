@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Request Reschedule for Pickup {{ pickup.id }}</h2>
+<form method="post">
+  {% csrf_token %}
+  <div class="mb-3">
+    <label class="form-label">New date (YYYY-MM-DD)</label>
+    <input name="scheduled_date" class="form-control" placeholder="2025-02-20" required>
+  </div>
+  <button class="btn btn-primary">Request Reschedule</button>
+</form>
+{% endblock %}

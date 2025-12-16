@@ -1,0 +1,22 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">WasteMgmt</a>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        {% if request.user.is_authenticated %}
+          <li class="nav-item"><a class="nav-link" href="{% url 'users:dashboard' %}">User</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'payments:dashboard' %}">Payments</a></li>
+          {% if request.user.is_staff %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'adminpanel:pickups_list' %}">Admin Panel</a></li>
+          {% endif %}
+          {% if request.user.is_worker %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'workers:dashboard' %}">Worker</a></li>
+          {% endif %}
+          <li class="nav-item"><a class="nav-link" href="{% url 'accounts:logout' %}">Logout</a></li>
+        {% else %}
+          <li class="nav-item"><a class="nav-link" href="{% url 'accounts:login' %}">Login</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Pay Invoice</h2>
+<p>Invoice: {{ payment.invoice_number }} - Amount: ₹{{ payment.amount }} - Month: {{ payment.month|date:'F Y' }}</p>
+<form method="post">
+  {% csrf_token %}
+  <button class="btn btn-success">Mark as Paid</button>
+</form>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Worker Dashboard</h2>
+<p>{{ worker }} - Approved: {{ worker.approved }}</p>
+<h4>Assigned Pickups</h4>
+<ul class="list-group">
+  {% for p in pickups %}
+    <li class="list-group-item">{{ p }} - Status: {{ p.get_status_display }} - <a href="{% url 'workers:update_pickup' p.id %}">Update</a></li>
+  {% empty %}
+    <li class="list-group-item">No pickups assigned</li>
+  {% endfor %}
+</ul>
+{% endblock %}

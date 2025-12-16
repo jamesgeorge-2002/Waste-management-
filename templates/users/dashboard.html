@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>User Dashboard</h2>
+<p>Welcome, {{ request.user.get_full_name }} ({{ request.user.email }})</p>
+<a href="{% url 'users:report_waste' %}" class="btn btn-primary mb-3">Report Waste</a>
+<h4>Recent Waste</h4>
+<ul class="list-group mb-3">
+  {% for w in waste %}
+    <li class="list-group-item">{{ w }} {% if w.image %}- <a href="{{ w.image.url }}">image</a>{% endif %}</li>
+  {% empty %}
+    <li class="list-group-item">No records yet</li>
+  {% endfor %}
+</ul>
+<h4>Pickup Status</h4>
+<ul class="list-group">
+  {% for p in pickups %}
+    <li class="list-group-item">{{ p }} - Status: {{ p.get_status_display }}</li>
+  {% empty %}
+    <li class="list-group-item">No pickups yet</li>
+  {% endfor %}
+</ul>
+{% endblock %}
